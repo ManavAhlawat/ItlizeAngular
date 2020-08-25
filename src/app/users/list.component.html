@@ -1,0 +1,59 @@
+﻿
+<!-- <a routerLink="add" class="btn btn-sm btn-success mb-2">Add User</a> -->
+<!-- <table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 30%">Resource Name</th>
+            <th style="width: 30%">Resource Code</th> -->
+            <!-- <th style="width: 30%">Username</th> -->
+            <!-- <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let resource of resources">
+            <td>{{resource.resourceName}}</td>
+            <td>{{resource.resourceCode}}</td> -->
+            <!-- <td>{{user.username}}</td> -->
+            <!-- <td style="white-space: nowrap">
+                <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteUser(user.userID)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
+                    <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!user.isDeleting">Delete</span>
+                </button>
+            </td> -->
+        <!-- </tr> -->
+        <!-- <tr *ngIf="!users">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr> -->
+    <!-- </tbody>
+</table> -->
+
+<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+      <style>
+          header{background: white;}
+      </style>
+
+      <header>Header</header>
+
+<span class="material-icons">
+    <a>account_circle</a> 
+    </span>
+    <div>
+        <div>Resource Management
+                Project 1
+
+        </div>
+        
+    </div> -->
+
+<ag-grid-angular
+  style="width: 1100px; height: 1100px;"
+  class="ag-theme-balham"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs"
+  (gridReady)="onGridReady($event)">
+</ag-grid-angular>
