@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {AccountService} from '@app/_services';
 import {IEventEmitter} from 'ag-grid-community';
 
@@ -7,10 +7,13 @@ import {IEventEmitter} from 'ag-grid-community';
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.less']
 })
-export class GridComponent implements OnInit {
+export class GridComponent implements OnInit, OnChanges {
   dataReady: boolean;
+  searchWord: string;
   params: any;
+  filterarray: Array<any> = [];
   rowData = [];
+  rowDataCopy = [];
   columnDefs = [
     { headerName: 'Resource Name', field: 'resourceName', sortable: true, filter: true },
     { headerName: 'Resource Code', field: 'resourceCode', sortable: true, filter: true }
@@ -19,21 +22,38 @@ export class GridComponent implements OnInit {
   constructor(private accountService: AccountService) {
     this.accountService.getAll()
       .subscribe(resources => { resources.forEach(node =>
-      this.rowData.push(node)
+          this.rowData.push(node));
+                                this.rowDataCopy = [...this.rowData];
+        }
+
       );
-                               this.dataReady = true; }
-      );
-    console.log(this.rowData);
+    this.dataReady = true;
+   // console.log(this.rowData);
   }
+
+  ngOnChanges(changes: import('@angular/core').SimpleChanges): void {
+       if (this.rowDataCopy != null) { this.rowDataCopy = [...this.rowData]; }
+
+    }
 
   ngOnInit(): void {
 
   }
 
-  // onGridReady(params){
-  //   if(this.dataReady){
-  //   params.api.setRowData(this.rowData);
-  //   console.log(params);}
-  // }
+  onChangeSearchBar(){
+    if (!this.searchWord) {
+      this.rowDataCopy = [...this.rowData];
+      return; }
+
+    console.log('click button');
+    this.dataReady = false;
+    this.rowDataCopy = [];
+    this.rowData.forEach(e => {
+      if (e.resourceName.includes(this.searchWord)) {
+        this.rowDataCopy.push(e);
+      }
+  });
+    this.dataReady = true;
+  }
 
 }

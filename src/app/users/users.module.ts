@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { UsersRoutingModule } from './users-routing.module';
@@ -11,12 +11,13 @@ import { AgGridModule } from 'ag-grid-angular';
 import { GridComponent } from './grid/grid.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        UsersRoutingModule,
-        AgGridModule.withComponents([])
-    ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    UsersRoutingModule,
+    AgGridModule.withComponents([]),
+    FormsModule
+  ],
     declarations: [
         LayoutComponent,
         ListComponent,
