@@ -1,6 +1,12 @@
-<p>grid works!</p>
-<input type="text" [(ngModel)]="searchWord">
-<button (click)="onChangeSearchBar()"> search</button>
+<!--<p>grid works!</p>-->
+<input type="text" id="myInput" [(ngModel)]="searchWord" placeholder="Search for names.." >
+
+<button  (click)="onChangeSearchBar()">search</button>
+<input type="text" [(ngModel)]="colName" placeholder="column name..">
+<button (click)="onAddColumn()"> add column</button>
+
+
+<button (click)="onAddRow()"> add row</button>
 <div *ngIf="dataReady">
 <ag-grid-angular
   style="width: 1100px; height: 500px;"
