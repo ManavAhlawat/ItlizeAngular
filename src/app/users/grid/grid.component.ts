@@ -1,6 +1,6 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import {AccountService} from '@app/_services';
-import {IEventEmitter} from 'ag-grid-community';
+//import {IEventEmitter} from 'ag-grid-community';
 
 @Component({
   selector: 'app-grid',
