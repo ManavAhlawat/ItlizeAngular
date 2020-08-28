@@ -20,7 +20,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="collapseExample" [ngbCollapse]="isCollapsed">
       <form>
         <div class="input-group no-border">
-          <input type="text" value="" class="form-control" placeholder="Search...">
+          <input type="text" value="" class="form-control" placeholder="Search data">
           <div class="input-group-append">
             <div class="input-group-text">
               <i class="nc-icon nc-zoom-split"></i>
@@ -46,9 +46,26 @@
             </p>
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
-            <a ngbDropdownItem href="javascript:void(0)">Add Row</a>
-            <a ngbDropdownItem href="javascript:void(0)">Add Column</a>
-            <a ngbDropdownItem href="javascript:void(0)">Import CVS</a>
+            <button ngbDropdownItem href="javascript:void(0)">Add Row</button>
+            <button ngbDropdownItem href="javascript:void(0)">Add Column</button>
+            <button ngbDropdownItem href="javascript:void(0)">Import CVS
+              <input
+                type="file"
+                name="datasource_upload"
+                class="choose-file"
+                id="datasource_upload"
+                accept=".xlsx,.xls,.csv"
+                ngf-max-size="20MB"
+                fd-input
+                (change)="handleDropedFile($event)"
+              />
+            </button>
+            <a ngbDropdownItem
+              class="dowload_csv"
+              href="sample-file-link"
+              download="download"
+            ><i class="fa fa-download"></i> Download CSV File</a
+            >
           </div>
         </li>
         <li class="nav-item">
@@ -63,3 +80,4 @@
     </div>
   </div>
 </nav>
+<script src="bower_components/angular-csv-import/dist/angular-csv-import.js"></script>

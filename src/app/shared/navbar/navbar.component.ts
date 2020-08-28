@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/co
 import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
+import { Papa} from 'ngx-papaparse';
 
 @Component({
     moduleId: module.id,
@@ -18,11 +19,18 @@ export class NavbarComponent implements OnInit{
 
     public isCollapsed = true;
     @ViewChild("navbar-cmp", {static: false}) button;
+    private csvRecords: any[];
+    private spinner: any;
 
-    constructor(location:Location, private renderer : Renderer2, private element : ElementRef, private router: Router) {
+    constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router, private papa: Papa) {
+        const csvData = '"Hello","World!"';
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
+        this.papa.parse(csvData,{
+        complete: (result) => {
+          console.log('Parsed: ', result);
+        }});
     }
 
     ngOnInit(){
@@ -78,18 +86,42 @@ export class NavbarComponent implements OnInit{
           this.sidebarVisible = false;
           html.classList.remove('nav-open');
       };
-      collapse(){
+      collapse() {
         this.isCollapsed = !this.isCollapsed;
         const navbar = document.getElementsByTagName('nav')[0];
         console.log(navbar);
         if (!this.isCollapsed) {
           navbar.classList.remove('navbar-transparent');
           navbar.classList.add('bg-white');
-        }else{
+        }else {
           navbar.classList.add('navbar-transparent');
           navbar.classList.remove('bg-white');
         }
 
       }
-
+  handleDropedFile(evt) {
+    this.csvRecords = [];
+    const files = evt.target.files;  // File List object
+    const file = files[0];
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = (event: any) => {
+      const csv = event.target.result; // Content of CSV file
+      this.papa.parse(csv, {
+        skipEmptyLines: true,
+        header: true,
+        complete: results => {
+          const data = results.data;
+          this.csvRecords = data;
+          console.log(this.csvRecords);
+          const total = this.csvRecords.length;
+          if (total == 0) {
+            this.spinner.hide();
+            alert('no data in csv');
+            return;
+          }
+        }
+      })
+    }
+  }
 }
