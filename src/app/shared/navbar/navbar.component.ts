@@ -3,6 +3,8 @@ import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
 import { Papa} from 'ngx-papaparse';
+import { NgxSpinnerService} from 'ngx-spinner';
+import { AgGridAngular} from 'ag-grid-angular';
 
 @Component({
     moduleId: module.id,
@@ -19,10 +21,10 @@ export class NavbarComponent implements OnInit{
 
     public isCollapsed = true;
     @ViewChild("navbar-cmp", {static: false}) button;
+    @ViewChild( 'agGrid') agGrid: AgGridAngular;
     private csvRecords: any[];
-    private spinner: any;
 
-    constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router, private papa: Papa) {
+    constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router, private papa: Papa, private spinner: NgxSpinnerService) {
         const csvData = '"Hello","World!"';
         this.location = location;
         this.nativeElement = element.nativeElement;
@@ -101,6 +103,7 @@ export class NavbarComponent implements OnInit{
       }
   handleDropedFile(evt) {
     this.csvRecords = [];
+    this.spinner.show();
     const files = evt.target.files;  // File List object
     const file = files[0];
     const reader = new FileReader();
