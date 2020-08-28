@@ -22,8 +22,7 @@ const routes: Routes = [{
   },
     //{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
      //{ path: 'resource', component: AdminLayoutComponent },
-    // { path: 'account', loadChildren: accountModule },
-
+     { path: 'account', loadChildren: accountModule },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
