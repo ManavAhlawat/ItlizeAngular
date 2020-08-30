@@ -4,14 +4,14 @@
         <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
         <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Resources</a>
         <a class="nav-item nav-link" (click)="logout()">Logout</a>
-        <input type="text" value="" class="form-control" placeholder="Search data">
+        <input type="text" value="" class="form-control" placeholder="Search data" (keyup)="handleSearchWord($event)" >
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
           Table Options
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Add Row</a>
-            <a class="dropdown-item" href="#">Add Column</a>
+            <a class="dropdown-item" (click)="handleAddRow()" >Add Row</a>
+            <a class="dropdown-item" (click)="handleAddColomn()">Add Column</a>
             <a class="dropdown-item" href="#">Import CSV <input
               type="file"
               name="datasource_upload"

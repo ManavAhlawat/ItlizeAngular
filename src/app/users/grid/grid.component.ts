@@ -1,6 +1,8 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import {AccountService} from '@app/_services';
 import {IEventEmitter} from 'ag-grid-community';
+import {ActionService} from '@app/_services/action.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-grid',
@@ -8,32 +10,53 @@ import {IEventEmitter} from 'ag-grid-community';
   styleUrls: ['./grid.component.less']
 })
 export class GridComponent implements OnInit, OnChanges {
+  message: any;
+  subscription: Subscription;
   dataReady: boolean;
   searchWord: string;
   params: any;
-  filterarray: Array<any> = [];
   rowData = [];
   rowDataCopy = [];
+  rowDataCopy2 = [];
   columnDefs = [
-    { headerName: 'Resource Name', field: 'resourceName', sortable: true, filter: true },
-    { headerName: 'Resource Code', field: 'resourceCode', sortable: true, filter: true }
+    { headerName: 'Resource Name', field: 'resourceName', sortable: true, filter: true , editable: true},
+    { headerName: 'Resource Code', field: 'resourceCode', sortable: true, filter: true , editable: true}
   ];
+  colName: string;
+  csv = [];
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService,
+              private actionService: ActionService
+              ) {
     this.accountService.getAll()
       .subscribe(resources => { resources.forEach(node =>
           this.rowData.push(node));
                                 this.rowDataCopy = [...this.rowData];
+                                this.rowDataCopy2 = [...this.rowData];
         }
 
       );
     this.dataReady = true;
    // console.log(this.rowData);
+    this.subscription = this.actionService.getMessage().subscribe(message => {
+      this.message = message;
+      // console.log('message from app component');
+      // console.log(this.message);
+      if (this.message.text === 'search') {
+        this.onChangeSearchBar(); }
+      if (this.message.text === 'addRow') {this.onAddRow(); }
+      if (this.message.text === 'addColumn') { this.onAddColumn(); }
+      if (this.message.text === 'csv') { this.onImportCSV(); }
+
+    });
   }
 
   ngOnChanges(changes: import('@angular/core').SimpleChanges): void {
-       if (this.rowDataCopy != null) { this.rowDataCopy = [...this.rowData]; }
-
+       // if (this.rowDataCopy != null) { this.rowDataCopy = [...this.rowData]; }
+       // this.searchWord = this.actionService.searchWord;
+       // if (this.message && this.message.text === 'search') {
+       //   console.log('终于触发了？');
+       //   this.onChangeSearchBar(); }
     }
 
   ngOnInit(): void {
@@ -41,19 +64,55 @@ export class GridComponent implements OnInit, OnChanges {
   }
 
   onChangeSearchBar(){
-    if (!this.searchWord) {
-      this.rowDataCopy = [...this.rowData];
+     if (this.searchWord == this.actionService.searchWord) { return; }
+     this.searchWord = this.actionService.searchWord;
+     if (!this.searchWord) {
+      this.rowDataCopy = [...this.rowDataCopy2];
       return; }
-
-    console.log('click button');
-    this.dataReady = false;
-    this.rowDataCopy = [];
-    this.rowData.forEach(e => {
+     console.log(this.rowDataCopy);
+     console.log(this.rowDataCopy2);
+     this.dataReady = false;
+     this.rowDataCopy = [];
+     this.rowDataCopy2.forEach(e => {
       if (e.resourceName.includes(this.searchWord)) {
         this.rowDataCopy.push(e);
       }
-  });
+    });
+     this.dataReady = true;
+
+  }
+  onAddRow() {
+    // if(this.actionService.addrowButton == false) return;
+    this.dataReady = false;
+    // this.actionService.addrowButton = false;
+    const tempval2 = {...this.rowData[0]};
+    tempval2.resourceCode = null;
+    tempval2.resourceName = null;
+    this.rowDataCopy.push(tempval2);
+    const tempval = [...this.rowDataCopy];
+    this.rowDataCopy2 = [...this.rowDataCopy];
+    this.rowDataCopy = null;
+    this.rowDataCopy = this.rowDataCopy2;
+    console.log(this.rowDataCopy);
     this.dataReady = true;
   }
+  onAddColumn() {
+    // this.columnDefsCopy.push();
+    // console.log('add col');
+    if (this.colName == null) { return; }
+    const tempval = [...this.columnDefs];
+    const tempCol = { headerName: this.colName, field: this.colName, sortable: true, filter: true , editable: true};
+    tempval.push(tempCol);
+    this.columnDefs = null;
+    this.columnDefs = [...tempval];
+
+  }
+  onImportCSV(){
+    // console.log(this.actionService.csv);
+    this.rowDataCopy2 = [...this.actionService.csv];
+    this.rowDataCopy = [...this.actionService.csv];
+
+  }
+
 
 }

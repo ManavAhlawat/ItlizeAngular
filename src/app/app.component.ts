@@ -5,6 +5,7 @@ import { User } from './_models';
 import { Papa} from 'ngx-papaparse';
 import { NgxSpinnerService} from 'ngx-spinner';
 import { AgGridAngular} from 'ag-grid-angular';
+import {ActionService} from '@app/_services/action.service';
 
 @Component({ selector: 'app', templateUrl: 'app.component.html' })
 export class AppComponent {
@@ -12,10 +13,11 @@ export class AppComponent {
     private csvRecords: any[];
     @ViewChild( 'agGrid') agGrid: AgGridAngular;
 
-    constructor(private accountService: AccountService, private papa: Papa, private spinner: NgxSpinnerService) {
+    constructor(private accountService: AccountService, private papa: Papa, private spinner: NgxSpinnerService,
+                private actionService: ActionService) {
         this.accountService.user.subscribe(x => this.user = x);
         const csvData = '"Hello","World!"';
-        this.papa.parse(csvData,{
+        this.papa.parse(csvData, {
         complete: (result) => {
           console.log('Parsed: ', result);
         }});
@@ -40,14 +42,28 @@ export class AppComponent {
           const data = results.data;
           this.csvRecords = data;
           console.log(this.csvRecords);
+          this.actionService.csv=this.csvRecords;
           const total = this.csvRecords.length;
           if (total == 0) {
             this.spinner.hide();
             alert('no data in csv');
             return;
           }
+          this.actionService.sendMessage('csv');
         }
-      })
-    }
+      });
+    };
+  }
+  handleSearchWord(e){
+    this.actionService.searchWord = e.target.value;
+    this.actionService.sendMessage('search');
+  }
+  handleAddRow(){
+   this.actionService.addrowButton = true;
+   this.actionService.sendMessage('addRow');
+  }
+  handleAddColomn(){
+  this.actionService.addColumnButton = true;
+  this.actionService.sendMessage('addColumn');
   }
 }
