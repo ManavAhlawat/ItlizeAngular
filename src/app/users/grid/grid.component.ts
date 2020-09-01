@@ -19,7 +19,7 @@ export class GridComponent implements OnInit, OnChanges {
   rowDataCopy = [];
   rowDataCopy2 = [];
   columnDefs = [
-    { headerName: 'Resource Name', field: 'resourceName', sortable: true, filter: true , editable: true},
+    { headerName: 'Resource Name', field: 'resourceName', sortable: true, filter: true , editable: true, checkboxSelection: true},
     { headerName: 'Resource Code', field: 'resourceCode', sortable: true, filter: true , editable: true}
   ];
   colName: string;
@@ -28,14 +28,22 @@ export class GridComponent implements OnInit, OnChanges {
   constructor(private accountService: AccountService,
               private actionService: ActionService
               ) {
-    this.accountService.getAll()
-      .subscribe(resources => { resources.forEach(node =>
-          this.rowData.push(node));
-                                this.rowDataCopy = [...this.rowData];
-                                this.rowDataCopy2 = [...this.rowData];
-        }
-
-      );
+    this.actionService.setColumnDefs(this.columnDefs);
+    // rewrite with action service. SO the data will get from the service first
+    // this.accountService.getAll()
+    //   .subscribe(resources => { resources.forEach(node =>
+    //                             this.rowData.push(node));
+    //                             this.rowDataCopy = [...this.rowData];
+    //                             this.rowDataCopy2 = [...this.rowData];
+    //                             this.actionService.setRowData(this.rowData);
+    //     }
+    //
+    //   );
+    this.rowData = [...this.actionService.getRowData()];
+    console.log('cnm');
+    console.log(this.rowData);
+    this.rowDataCopy = [...this.rowData];
+    this.rowDataCopy2 = [...this.rowData];
     this.dataReady = true;
    // console.log(this.rowData);
     this.subscription = this.actionService.getMessage().subscribe(message => {
@@ -52,11 +60,6 @@ export class GridComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: import('@angular/core').SimpleChanges): void {
-       // if (this.rowDataCopy != null) { this.rowDataCopy = [...this.rowData]; }
-       // this.searchWord = this.actionService.searchWord;
-       // if (this.message && this.message.text === 'search') {
-       //   console.log('终于触发了？');
-       //   this.onChangeSearchBar(); }
     }
 
   ngOnInit(): void {
@@ -93,6 +96,7 @@ export class GridComponent implements OnInit, OnChanges {
     this.rowDataCopy2 = [...this.rowDataCopy];
     this.rowDataCopy = null;
     this.rowDataCopy = this.rowDataCopy2;
+    this.actionService.setRowData(this.rowDataCopy);
     console.log(this.rowDataCopy);
     this.dataReady = true;
   }
@@ -105,12 +109,13 @@ export class GridComponent implements OnInit, OnChanges {
     tempval.push(tempCol);
     this.columnDefs = null;
     this.columnDefs = [...tempval];
-
+    this.actionService.setColumnDefs(this.columnDefs);
   }
   onImportCSV(){
     // console.log(this.actionService.csv);
     this.rowDataCopy2 = [...this.actionService.csv];
     this.rowDataCopy = [...this.actionService.csv];
+    this.actionService.setRowData(this.rowDataCopy);
 
   }
 

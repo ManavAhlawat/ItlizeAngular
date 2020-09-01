@@ -14,20 +14,20 @@ export class ListComponent implements OnInit {
       { headerName: "Resource Code", field: "resourceCode" }
   ];
     constructor(private accountService: AccountService) {
-        this.accountService.getAll()
-            .subscribe(resources => resources.forEach(node => this.rowData.push(node)));
-            console.log(this.rowData);
+        // this.accountService.getAll()
+        //     .subscribe(resources => resources.forEach(node => this.rowData.push(node)));
+        //     console.log(this.rowData);
     }
-    
+
     ngOnInit() {
     }
 onGridReady(params){
   params.api.setRowData(this.rowData);
   console.log(params);
 }
-    
 
-    
+
+
 
     // deleteUser(id: string) {
     //     const user = this.users.find(x => x.userID === id);
@@ -35,7 +35,7 @@ onGridReady(params){
     //     this.accountService.delete(id)
     //         .pipe(first())
     //         .subscribe(() => {
-    //             this.users = this.users.filter(x => x.userID !== id) 
+    //             this.users = this.users.filter(x => x.userID !== id)
     //         });
     // }
 }

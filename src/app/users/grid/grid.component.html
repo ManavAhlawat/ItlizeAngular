@@ -4,10 +4,13 @@
 
 <div *ngIf="dataReady">
 <ag-grid-angular
+
   style="width: 1100px; height: 500px;"
   class="ag-theme-balham"
   [rowData]="rowDataCopy"
   [columnDefs]="columnDefs"
+  [suppressRowClickSelection]="true"
+  rowSelection="multiple"
 >
   </ag-grid-angular>
 </div>

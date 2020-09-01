@@ -9,6 +9,7 @@ import { AddEditComponent } from './add-edit.component';
 
 import { AgGridModule } from 'ag-grid-angular';
 import { GridComponent } from './grid/grid.component';
+import {Project} from '@app/users/project';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { GridComponent } from './grid/grid.component';
     declarations: [
         LayoutComponent,
         ListComponent,
+        Project,
         AddEditComponent,
         GridComponent
     ]
