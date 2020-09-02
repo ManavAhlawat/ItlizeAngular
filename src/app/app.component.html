@@ -1,7 +1,7 @@
 ﻿<div class="d-flex" id="wrapper">
   <!-- side -->
-  <nav id = "sidebar" *ngIf="user">
-    <div class = "sidebar-header">
+  <nav id="sidebar" *ngIf="user">
+    <div class="sidebar-header">
       <h3>Navigation</h3>
     </div>
     <ul class="list-unstyled components">
@@ -12,15 +12,14 @@
         <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Resources</a>
       </li>
       <li>
-        <a class="nav-item nav-link" routerLink="/users/project" >Project</a>
+        <a class="nav-item nav-link" routerLink="/users/project">Project</a>
       </li>
       <li>
         <a class="nav-item nav-link" (click)="logout()">logout</a>
-
       </li>
     </ul>
   </nav>
-  <div id="page-content-wrapper">
+  <div id="page-content-wrapper" class="container-fluid">
     <!-- nav -->
     <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top" *ngIf="user">
       <div class="navbar-nav">
@@ -32,7 +31,7 @@
           <div class="dropdown-menu">
             <a class="dropdown-item" (click)="handleAddRow()">Add Row</a>
             <a class="dropdown-item" (click)="handleAddColomn()">Add Column</a>
-            <a class="dropdown-item" > Import CSV <input
+            <a class="dropdown-item"> Import CSV <input
               type="file"
               name="datasource_upload"
               class="choose-file"
@@ -42,14 +41,12 @@
               fd-input
               (change)="handleDropedFile($event)"
             /></a>
-
           </div>
         </li>
       </div>
     </nav>
-
     <!-- main app container -->
-    <div class="app-container" [ngClass]="{ 'bg-light': user }">
+    <div class="container-fluid" [ngClass]="{ 'bg-light': user }">
       <alert></alert>
       <router-outlet></router-outlet>
     </div>

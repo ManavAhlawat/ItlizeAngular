@@ -1,36 +1,60 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      <button class="btn btn-warning" (click)="handleOnSubmit()">Export</button>
+      <button class="btn btn-warning" (click)="handelSelectAll()">Select all</button>
+      <button class="btn btn-warning" (click)="handleClearAll()">Clear all</button>
+      <ag-grid-angular
+        #agGrid
+        style="width: 500px; height: 500px;"
+        class="ag-theme-balham"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        [suppressRowClickSelection]="true"
+        rowSelection="multiple">
+      </ag-grid-angular>
+    </div>
+    <div class="col-6">
+      <button class="btn btn-warning" (click)="handleSelectAll2()">select all</button>
+      <button class="btn btn-warning" (click)="handleDelete()"> delete</button>
+      <ag-grid-angular
+        #agGrid2
+        style="width: 500px; height: 500px;"
+        class="ag-theme-balham"
+        [rowData]="rowData2"
+        [columnDefs]="columnDefs"
+        [suppressRowClickSelection]="true"
+        rowSelection="multiple"
+      >
+      </ag-grid-angular>
+    </div>
+  </div>
+</div>
 
-<h1> hi this is project component</h1>
+<!--<h1> hi this is project component</h1>-->
 <!--<app-grid ></app-grid>-->
-<button (click)="handleOnSubmit()" >export</button>
-<button (click)="handelSelectAll()"> select all</button>
-<button (click)="handleClearAll()"> clear all</button>
+<!--<button (click)="handleOnSubmit()">export</button>-->
+<!--<button (click)="handelSelectAll()"> select all</button>-->
+<!--<button (click)="handleClearAll()"> clear all</button>-->
+<!--<ag-grid-angular-->
+<!--  #agGrid-->
+<!--  style="width: 500px; height: 500px;"-->
+<!--  class="ag-theme-balham"-->
+<!--  [rowData]="rowData"-->
+<!--  [columnDefs]="columnDefs"-->
+<!--  [suppressRowClickSelection]="true"-->
+<!--  rowSelection="multiple">-->
+<!--</ag-grid-angular>-->
 
-<div>
-<div  style=" display: inline;">
-<ag-grid-angular
-  #agGrid
-  style="width: 500px; height: 500px;"
-  class="ag-theme-balham"
-  [rowData]="rowData"
-  [columnDefs]="columnDefs"
-  [suppressRowClickSelection]="true"
-  rowSelection="multiple"
->
-</ag-grid-angular>
-</div>
-
-<div style=" display: inline;">
-  <button (click)="handleSelectAll2()">select all</button>
-  <button (click)="handleDelete()"> delete</button>
-<ag-grid-angular
-  #agGrid2
-  style="width: 500px; height: 500px;"
-  class="ag-theme-balham"
-  [rowData]="rowData2"
-  [columnDefs]="columnDefs"
-  [suppressRowClickSelection]="true"
-  rowSelection="multiple"
->
-</ag-grid-angular>
-</div>
-</div>
+<!--<button (click)="handleSelectAll2()">select all</button>-->
+<!--<button (click)="handleDelete()"> delete</button>-->
+<!--<ag-grid-angular-->
+<!--  #agGrid2-->
+<!--  style="width: 500px; height: 500px;"-->
+<!--  class="ag-theme-balham"-->
+<!--  [rowData]="rowData2"-->
+<!--  [columnDefs]="columnDefs"-->
+<!--  [suppressRowClickSelection]="true"-->
+<!--  rowSelection="multiple"-->
+<!--&gt;-->
+<!--</ag-grid-angular>-->
