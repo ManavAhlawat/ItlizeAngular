@@ -1,6 +1,6 @@
 ﻿<div class="d-flex" id="wrapper">
   <!-- side -->
-  <nav id = "sidebar">
+  <nav id = "sidebar" *ngIf="user">
     <div class = "sidebar-header">
       <h3>Navigation</h3>
     </div>
@@ -16,12 +16,13 @@
       </li>
       <li>
         <a class="nav-item nav-link" (click)="logout()">logout</a>
+
       </li>
     </ul>
   </nav>
   <div id="page-content-wrapper">
     <!-- nav -->
-    <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
+    <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top" *ngIf="user">
       <div class="navbar-nav">
         <input type="text" value="" class="form-control" placeholder="Search data">
         <li class="nav-item dropdown">
