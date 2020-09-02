@@ -12,7 +12,10 @@
         <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Resources</a>
       </li>
       <li>
-        <a class="nav-item nav-link" (click)="logout()">Project</a>
+        <a class="nav-item nav-link" routerLink="/users/project" >Project</a>
+      </li>
+      <li>
+        <a class="nav-item nav-link" (click)="logout()">logout</a>
       </li>
     </ul>
   </nav>
@@ -26,9 +29,9 @@
             Table Options
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Add Row</a>
-            <a class="dropdown-item" href="#">Add Column</a>
-            <a class="dropdown-item" href="#"> Import CSV <input
+            <a class="dropdown-item" (click)="handleAddRow()">Add Row</a>
+            <a class="dropdown-item" (click)="handleAddColomn()">Add Column</a>
+            <a class="dropdown-item" > Import CSV <input
               type="file"
               name="datasource_upload"
               class="choose-file"
