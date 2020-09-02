@@ -56,6 +56,7 @@ export class AppComponent {
   }
   handleSearchWord(e){
     this.actionService.searchWord = e.target.value;
+    console.log('on search : '+ this.actionService.searchWord);
     this.actionService.sendMessage('search');
   }
   handleAddRow(){

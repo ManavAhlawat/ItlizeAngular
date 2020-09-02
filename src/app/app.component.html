@@ -24,7 +24,7 @@
     <!-- nav -->
     <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top" *ngIf="user">
       <div class="navbar-nav">
-        <input type="text" value="" class="form-control" placeholder="Search data">
+        <input type="text" (keyup)="handleSearchWord($event)" class="form-control" placeholder="Search data">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
             Table Options
