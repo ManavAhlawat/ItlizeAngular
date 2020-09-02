@@ -5,6 +5,7 @@ import { LayoutComponent } from './layout.component';
 import { ListComponent } from './list.component';
 import { AddEditComponent } from './add-edit.component';
 import {Project} from '@app/users/project';
+import {GridComponent} from '@app/users/grid/grid.component';
 
 const routes: Routes = [
     {
@@ -13,7 +14,8 @@ const routes: Routes = [
             { path: '', component: ListComponent },
             { path: 'project', component: Project},
             { path: 'add', component: AddEditComponent },
-            { path: 'edit/:id', component: AddEditComponent }
+            { path: 'edit/:id', component: AddEditComponent },
+            { path: 'grid', component: GridComponent}
         ]
     }
 ];

@@ -1,6 +1,6 @@
 ﻿<div class="d-flex" id="wrapper">
   <!-- side -->
-  <nav id = "sidebar">
+  <nav id = "sidebar" *ngIf="user">
     <div class = "sidebar-header">
       <h3>Navigation</h3>
     </div>
@@ -9,10 +9,10 @@
         <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
       </li>
       <li>
-        <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Resources</a>
+        <a class="nav-item nav-link" routerLink="/grid" routerLinkActive="active">Resources</a>
       </li>
       <li>
-        <a class="nav-item nav-link" (click)="logout()">Project</a>
+        <a class="nav-item nav-link" routerLink="/project" routerLinkActive="active">Project</a>
       </li>
     </ul>
   </nav>
