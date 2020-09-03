@@ -43,7 +43,46 @@
             /></a>
           </div>
         </li>
+        
       </div>
+      <ng-template #content let-modal> 
+        <div class="modal-header"> 
+            <h4 class="modal-title" 
+                id="modal-basic-title"> 
+                Hi {{user.username}} !
+            </h4> 
+            <button type="button" class="close"
+                    aria-label="Close" (click)= 
+                    "modal.dismiss('Cross click')"> 
+      
+                <span aria-hidden="true"> 
+                    × 
+                </span> 
+            </button> 
+        </div> 
+        <div class="modal-body"> 
+            <form> 
+                <div class="form-group"> 
+                    <label> 
+                        Member Since: 
+                        <B>{{user.memberSince}}</B>
+                    </label> 
+                    
+                </div> 
+            </form> 
+        </div> 
+    </ng-template> 
+      
+    <!-- <button 
+        (click)="open(content)">  -->
+        <!-- <button type="button" class="btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-user"></span> User 
+          </button> -->
+          <a href="#" class="btn btn-danger btn-lg" (click)="open(content)" style="align-self:right;">
+            <span class="glyphicon glyphicon-user"></span> User 
+          </a>
+    <!-- </button>  -->
+    
     </nav>
     <!-- main app container -->
     <div class="container-fluid" [ngClass]="{ 'bg-light': user }">

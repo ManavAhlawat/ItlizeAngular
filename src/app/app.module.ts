@@ -14,6 +14,7 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';;
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { HomeComponent } from './home';;
         FormsModule,
         BrowserAnimationsModule,
         AgGridModule.withComponents([])
-    ],
+,
+        NgbModule    ],
     declarations: [
         AppComponent,
         AlertComponent,
