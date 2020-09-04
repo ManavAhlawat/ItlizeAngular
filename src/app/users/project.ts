@@ -1,17 +1,20 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActionService} from '@app/_services/action.service';
 import {AgGridAngular} from 'ag-grid-angular';
+import { AccountService } from '@app/_services';
+import { first } from 'rxjs/operators';
 
 @Component({templateUrl: 'project.html', styleUrls: ['./project.css']})
 
 export class Project implements OnInit{
+  projects = null
   rowData: any[];
   rowData2: any[];
   columnDefs: any[];
 
   @ViewChild('agGrid') agGrid: AgGridAngular;
   @ViewChild('agGrid2') agGrid2: AgGridAngular;
-  constructor(public actionService: ActionService ) {
+  constructor(public actionService: ActionService, private accountService: AccountService ) {
     this.rowData = [...this.actionService.getRowData()];
     this.rowData2 =[];
     this.columnDefs = [...this.actionService.getColumnDefs()];
@@ -20,6 +23,10 @@ export class Project implements OnInit{
   ngOnInit(){
     // console.log(this.rowData);
     // console.log(this.columnDefs);
+    this.accountService.getProjects()
+            .pipe(first())
+            .subscribe(projects => this.projects = projects);
+            console.log(this.projects);
   }
 
   handleOnSubmit() {

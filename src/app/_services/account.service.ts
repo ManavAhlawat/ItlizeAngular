@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
 import { Resource } from '@app/_models/resource';
+import { Project } from '@app/_models/project';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -48,6 +49,10 @@ export class AccountService {
 
     getAll() {
         return this.http.get<Resource[]>(`${environment.apiUrl}/resources`);
+    }
+
+    getProjects(){
+        return this.http.get<Project[]>(`${environment.apiUrl}/projects`);
     }
 
     getById(id: string) {
