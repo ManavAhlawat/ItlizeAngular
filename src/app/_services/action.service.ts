@@ -9,7 +9,7 @@ import {environment} from '@environments/environment';
 })
 export class ActionService {
 
-
+  public projectName: string;
   public searchWord: string;
   public addrowButton: boolean;
   public addColumnButton: boolean;

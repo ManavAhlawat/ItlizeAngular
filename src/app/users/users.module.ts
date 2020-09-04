@@ -9,7 +9,7 @@ import { AddEditComponent } from './add-edit.component';
 
 import { AgGridModule } from 'ag-grid-angular';
 import { GridComponent } from './grid/grid.component';
-import {Project} from '@app/users/project';
+import {ProjectComponent} from '@app/users/project.component';
 import {Ng2CompleterModule} from 'ng2-completer';
 
 @NgModule({
@@ -24,7 +24,7 @@ import {Ng2CompleterModule} from 'ng2-completer';
     declarations: [
         LayoutComponent,
         ListComponent,
-        Project,
+        ProjectComponent,
         AddEditComponent,
         GridComponent
     ]

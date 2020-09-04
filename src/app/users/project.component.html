@@ -1,8 +1,10 @@
-<div>  
-  Select Project :  
-  <select style="width:100px;">  
-          <option  *ngFor="let project of projects">{{project.projectName}} </option>  
-  </select> 
+<div>
+  Select ProjectComponent :
+  <select style="width:100px;" (change)="handleSelectProject($event)">
+    <option value="project1"> project1</option>
+    <option value="project2"> project2</option>
+    <option value="project3"> project3</option>
+  </select>
 </div>
 <br>
 <br>

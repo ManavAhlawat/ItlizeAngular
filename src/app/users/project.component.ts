@@ -1,13 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActionService} from '@app/_services/action.service';
 import {AgGridAngular} from 'ag-grid-angular';
 import { AccountService } from '@app/_services';
 import { first } from 'rxjs/operators';
 
-@Component({templateUrl: 'project.html', styleUrls: ['./project.css']})
+@Component({templateUrl: 'project.component.html', styleUrls: ['./project.component.css']})
 
-export class Project implements OnInit{
-  projects = null
+export class ProjectComponent implements OnInit, OnDestroy{
+  projects ;
   rowData: any[];
   rowData2: any[];
   columnDefs: any[];
@@ -16,17 +16,20 @@ export class Project implements OnInit{
   @ViewChild('agGrid2') agGrid2: AgGridAngular;
   constructor(public actionService: ActionService, private accountService: AccountService ) {
     this.rowData = [...this.actionService.getRowData()];
-    this.rowData2 =[];
+    this.rowData2 = [];
     this.columnDefs = [...this.actionService.getColumnDefs()];
 
   }
   ngOnInit(){
     // console.log(this.rowData);
     // console.log(this.columnDefs);
+    //this.projects='project1';
+    this.actionService.projectName ='project1';
+    this.actionService.sendMessage('project');
     this.accountService.getProjects()
             .pipe(first())
             .subscribe(projects => this.projects = projects);
-            console.log(this.projects);
+    // console.log(this.projects);
   }
 
   handleOnSubmit() {
@@ -54,8 +57,18 @@ export class Project implements OnInit{
     this.agGrid.api.deselectAll();
   }
   handleDelete(){
-    this.agGrid2.api.getSelectedNodes()
+    this.agGrid2.api.getSelectedNodes();
     this.agGrid2.api.removeItems(this.agGrid2.api.getSelectedNodes());
+  }
+  handleSelectProject(e){
+    console.log(e);
+    this.actionService.projectName = e.target.value;
+    this.actionService.sendMessage('project');
+  }
+
+  ngOnDestroy(): void {
+    this.actionService.projectName =null;
+    this.actionService.sendMessage('project');
   }
 
 }

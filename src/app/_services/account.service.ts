@@ -7,7 +7,8 @@ import { map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
 import { Resource } from '@app/_models/resource';
-import { Project } from '@app/_models/project';
+import {ProjectComponent} from '@app/users/project.component';
+// import { ProjectComponent } from '@app/_models/project';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -52,7 +53,7 @@ export class AccountService {
     }
 
     getProjects(){
-        return this.http.get<Project[]>(`${environment.apiUrl}/projects`);
+        return this.http.get<ProjectComponent[]>(`${environment.apiUrl}/projects`);
     }
 
     getById(id: string) {
