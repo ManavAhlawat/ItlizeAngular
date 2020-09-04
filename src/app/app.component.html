@@ -19,71 +19,49 @@
       </li>
     </ul>
   </nav>
+  <h1>Dummy Global Header</h1>
   <div id="page-content-wrapper" class="container-fluid">
     <!-- nav -->
-    <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top" *ngIf="user">
-      <div class="navbar-nav">
-        <input type="text" (keyup)="handleSearchWord($event)" class="form-control" placeholder="Search data">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
-            Table Options
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" (click)="handleAddRow()">Add Row</a>
-            <a class="dropdown-item" (click)="handleAddColomn()">Add Column</a>
-            <a class="dropdown-item"> Import CSV <input
-              type="file"
-              name="datasource_upload"
-              class="choose-file"
-              id="datasource_upload"
-              accept=".xlsx,.xls,.csv"
-              ngf-max-size="20MB"
-              fd-input
-              (change)="handleDropedFile($event)"
-            /></a>
-          </div>
-        </li>
-        
-      </div>
-      <ng-template #content let-modal> 
-        <div class="modal-header"> 
-            <h4 class="modal-title" 
-                id="modal-basic-title"> 
+
+      <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title"
+                id="modal-basic-title">
                 Hi {{user.username}} !
-            </h4> 
+            </h4>
             <button type="button" class="close"
-                    aria-label="Close" (click)= 
-                    "modal.dismiss('Cross click')"> 
-      
-                <span aria-hidden="true"> 
-                    × 
-                </span> 
-            </button> 
-        </div> 
-        <div class="modal-body"> 
-            <form> 
-                <div class="form-group"> 
-                    <label> 
-                        Member Since: 
+                    aria-label="Close" (click)=
+                    "modal.dismiss('Cross click')">
+
+                <span aria-hidden="true">
+                    ×
+                </span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label>
+                        Member Since:
                         <B>{{user.memberSince}}</B>
-                    </label> 
-                    
-                </div> 
-            </form> 
-        </div> 
-    </ng-template> 
-      
-    <!-- <button 
+                    </label>
+
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <!-- <button
         (click)="open(content)">  -->
         <!-- <button type="button" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-user"></span> User 
+            <span class="glyphicon glyphicon-user"></span> User
           </button> -->
           <a href="#" class="btn btn-danger btn-lg" (click)="open(content)" style="align-self:right;">
-            <span class="glyphicon glyphicon-user"></span> User 
+            <span class="glyphicon glyphicon-user"></span> User
           </a>
     <!-- </button>  -->
-    
-    </nav>
+
+
     <!-- main app container -->
     <div class="container-fluid" [ngClass]="{ 'bg-light': user }">
       <alert></alert>

@@ -1,4 +1,29 @@
 <!--<p>grid works!</p>-->
+<nav class="navbar navbar-expand navbar-dark bg-dark sticky-top" *ngIf="user">
+  <div class="navbar-nav">
+    <input type="text" (keyup)="handleSearchWord($event)" class="form-control" placeholder="Search data">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
+        Table Options
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" (click)="handleAddRow()">Add Row</a>
+        <a class="dropdown-item" (click)="handleAddColomn()">Add Column</a>
+        <a class="dropdown-item"> Import CSV <input
+          type="file"
+          name="datasource_upload"
+          class="choose-file"
+          id="datasource_upload"
+          accept=".xlsx,.xls,.csv"
+          ngf-max-size="20MB"
+          fd-input
+          (change)="handleDropedFile($event)"
+        /></a>
+      </div>
+    </li>
+
+  </div>
+</nav>
 <tr>
   <td colspan="2" style="text-align: center;">
     <h4>brand new searching bar with auto-complete</h4>

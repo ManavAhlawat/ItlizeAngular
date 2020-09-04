@@ -6,7 +6,7 @@ import {Papa} from 'ngx-papaparse';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {AgGridAngular} from 'ag-grid-angular';
 import {ActionService} from '@app/_services/action.service';
-import {NgbModal,ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({selector: 'app', templateUrl: 'app.component.html'})
 export class AppComponent {
@@ -75,23 +75,23 @@ export class AppComponent {
     this.actionService.sendMessage('addColumn');
   }
 
-  open(content) { 
-    this.modalService.open(content, 
-   {ariaLabelledBy: 'modal-basic-title'}).result.then((result)  => { 
-      this.closeResult = `Closed with: ${result}`; 
-    }, (reason) => { 
-      this.closeResult =  
-         `Dismissed ${this.getDismissReason(reason)}`; 
-    }); 
-  } 
-  
-  private getDismissReason(reason: any): string { 
-    if (reason === ModalDismissReasons.ESC) { 
-      return 'by pressing ESC'; 
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) { 
-      return 'by clicking on a backdrop'; 
-    } else { 
-      return `with: ${reason}`; 
-    } 
-  } 
+  open(content) {
+    this.modalService.open(content,
+   {ariaLabelledBy: 'modal-basic-title'}).result.then((result)  => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult =
+         `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 }
