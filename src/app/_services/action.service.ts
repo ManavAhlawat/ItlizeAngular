@@ -15,7 +15,7 @@ export class ActionService {
   public addColumnButton: boolean;
   public csv: any;
   private rowData = [];
-
+  private datasource = [];
   private columnDefs = [
     { headerName: 'Resource Name', field: 'resourceName', sortable: true, filter: true , editable: true, checkboxSelection: true},
     { headerName: 'Resource Code', field: 'resourceCode', sortable: true, filter: true , editable: true}
@@ -23,7 +23,9 @@ export class ActionService {
   private subject = new Subject<any>();
   constructor(private httpClient: HttpClient) {
     this.getResources().subscribe(e => {
-      e.forEach(node => this.rowData.push(node));
+      e.forEach(node => {this.rowData.push(node);
+                         this.datasource.push(node.resourceName);
+                          });
     });
   }
   getResources(): Observable<any>{
@@ -44,6 +46,12 @@ export class ActionService {
   }
   getColumnDefs(){
     return this.columnDefs;
+  }
+  getDatasource(){
+    return this.datasource;
+  }
+  setDatasource(params){
+    this.datasource=[...params];
   }
 
   sendMessage(message: string) {

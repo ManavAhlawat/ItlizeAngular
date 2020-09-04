@@ -1,5 +1,19 @@
 <!--<p>grid works!</p>-->
+<tr>
+  <td colspan="2" style="text-align: center;">
+    <h4>brand new searching bar with auto-complete</h4>
+  </td>
+</tr>
+<tr>
+  <td>
+    search with dynamic data:
+  </td>
+  <td>
+    <ng2-completer #ng2Completer [(ngModel)]="searchString" [autoMatch]="true" minSearchLength="0" [datasource]="datasource"  (opened)="handdleAutoComplete()"></ng2-completer>
+  </td>
+</tr>
 
+<br/>
 <input type="text" [(ngModel)]="colName" placeholder="please column name..">
 
 <div *ngIf="dataReady">
