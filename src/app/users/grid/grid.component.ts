@@ -4,6 +4,8 @@ import {IEventEmitter} from 'ag-grid-community';
 import {ActionService} from '@app/_services/action.service';
 import {Subscription} from 'rxjs';
 import {CompleterData, CompleterService, Ng2CompleterModule} from 'ng2-completer';
+import {Papa} from 'ngx-papaparse';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-grid',
@@ -28,9 +30,11 @@ export class GridComponent implements OnInit, OnChanges {
   ];
   colName: string;
   csv = [];
-
+  private csvRecords: any[];
   constructor(private accountService: AccountService,
-              private actionService: ActionService
+              private actionService: ActionService,
+              private papa: Papa,
+              private spinner: NgxSpinnerService
   ) {
 
     this.actionService.setColumnDefs(this.columnDefs);
@@ -118,6 +122,34 @@ export class GridComponent implements OnInit, OnChanges {
     this.columnDefs = null;
     this.columnDefs = [...tempval];
     this.actionService.setColumnDefs(this.columnDefs);
+  }
+  handleDropedFile(evt) {
+    this.csvRecords = [];
+    this.spinner.show();
+    const files = evt.target.files;  // File List object
+    const file = files[0];
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = (event: any) => {
+      const csv = event.target.result; // Content of CSV file
+      this.papa.parse(csv, {
+        skipEmptyLines: true,
+        header: true,
+        complete: results => {
+          const data = results.data;
+          this.csvRecords = data;
+          console.log(this.csvRecords);
+          this.actionService.csv = this.csvRecords;
+          const total = this.csvRecords.length;
+          if (total == 0) {
+            this.spinner.hide();
+            alert('no data in csv');
+            return;
+          }
+          this.actionService.sendMessage('csv');
+        }
+      });
+    };
   }
 
   onImportCSV() {

@@ -1,14 +1,70 @@
-<tr>
-  <td>
-    search with dynamic data:
-  </td>
-  <td>
-    <ng2-completer #ng2Completer [(ngModel)]="searchString" [autoMatch]="true" minSearchLength="0" [datasource]="datasource"  (opened)="handdleAutoComplete()"></ng2-completer>
-  </td>
-</tr>
-<!--<input type="text"  class="form-control" placeholder="Search data">-->
-<br/>
-<input type="text" [(ngModel)]="colName" placeholder="please column name..">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!--  <a class="navbar-brand" >Table Options</a>-->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+<!--      <li class="nav-item active">-->
+<!--        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
+<!--      </li>-->
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" href="#">Link</a>-->
+<!--      </li>-->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Table option
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" (click)="onAddRow()">add row</a>
+          <div class= "dropdown-item">
+            <a  (click)="onAddColumn()">add column</a>
+            <input type="text" [(ngModel)]="colName" placeholder="column name" >
+          </div>
+          <div class="dropdown-divider"></div>
+<!--          <a class="dropdown-item" (click)="onImportCSV()">import csv</a>-->
+          <a class="dropdown-item"> Import CSV <input
+            type="file"
+            name="datasource_upload"
+            class="choose-file"
+            id="datasource_upload"
+            accept=".xlsx,.xls,.csv"
+            ngf-max-size="20MB"
+            fd-input
+            (change)="handleDropedFile($event)"
+          /></a>
+        </div>
+      </li>
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+<!--      </li>-->
+    </ul>
+
+<!--    <form class="form-inline my-2 my-lg-0">-->
+<!--      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+
+      <ng2-completer #ng2Completer [(ngModel)]="searchString" [autoMatch]="true"
+                     minSearchLength="0" [datasource]="datasource"
+                     placeholder="search..."
+                     (opened)="handdleAutoComplete()"></ng2-completer>
+<!--      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+<!--    </form>-->
+  </div>
+</nav>
+
+
+<!--<tr>-->
+<!--  <td>-->
+<!--    search with dynamic data:-->
+<!--  </td>-->
+<!--  <td>-->
+<!--    <ng2-completer #ng2Completer [(ngModel)]="searchString" [autoMatch]="true" minSearchLength="0" [datasource]="datasource"  (opened)="handdleAutoComplete()"></ng2-completer>-->
+<!--  </td>-->
+<!--</tr>-->
+<!--&lt;!&ndash;<input type="text"  class="form-control" placeholder="Search data">&ndash;&gt;-->
+<!--<br/>-->
+<!--<input type="text" [(ngModel)]="colName" placeholder="please column name..">-->
 
 <div *ngIf="dataReady">
 <ag-grid-angular
